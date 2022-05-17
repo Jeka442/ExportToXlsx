@@ -1,0 +1,15 @@
+import * as XLSX from 'xlsx';
+
+export const ExportToXlsx = (
+  headers: string[],
+  data: any[][],
+  fileName: string
+) => {
+  const ws = XLSX.utils.book_new();
+  XLSX.utils.sheet_add_aoa(ws, [headers]);
+  XLSX.utils.sheet_add_aoa(ws, data, {
+    origin: 2,
+  });
+  const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+  XLSX.writeFile(wb, `${fileName}.xlsx`);
+};
